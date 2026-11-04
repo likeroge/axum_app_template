@@ -12,8 +12,11 @@ use tower_http::{
 };
 
 use crate::db::init_db;
-
+mod api;
+mod api_responses;
 mod db;
+mod domain;
+mod infrastructure;
 mod template_controllers;
 
 #[tokio::main]
@@ -48,6 +51,7 @@ async fn main() {
             "/sql",
             get(|| async { "Hello from Axum+SQLx+SQLite template!" }),
         )
+        .route("/api/users", get(api::users::users_list))
         .route("/home", get(template_controllers::home_page::index))
         .fallback_service(static_files)
         .layer(cors)
