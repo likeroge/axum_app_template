@@ -1,4 +1,4 @@
-use sqlx::{SqlitePool, sqlite::SqliteQueryResult};
+use sqlx::SqlitePool;
 
 use crate::domain::models::user::{CreateUser, User};
 
