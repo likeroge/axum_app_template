@@ -4,6 +4,7 @@ use crate::domain::models::user::{CreateUser, User};
 
 pub async fn users_list(pool: SqlitePool) -> Result<Vec<User>, sqlx::Error> {
     match sqlx::query_as::<_, User>("SELECT * FROM users")
+        // match sqlx::query_as!(User, "SELECT * FROM users")
         .fetch_all(&pool)
         .await
     {

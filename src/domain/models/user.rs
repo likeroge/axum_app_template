@@ -3,7 +3,7 @@ use sqlx::prelude::FromRow;
 
 #[derive(Default, FromRow, Serialize, Deserialize)]
 pub struct User {
-    pub id: u64,
+    pub id: i64,
     pub name: String,
     pub email: String,
     pub created_at: String,
