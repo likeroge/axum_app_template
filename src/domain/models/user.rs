@@ -9,8 +9,8 @@ pub struct User {
     pub created_at: String,
 }
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Default, Serialize, Deserialize, FromRow, Debug)]
 pub struct CreateUser {
-    pub name: String,
+    pub username: String,
     pub email: String,
 }

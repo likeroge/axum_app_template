@@ -1,4 +1,4 @@
-use sqlx::SqlitePool;
+use sqlx::{SqlitePool, sqlite::SqliteQueryResult};
 
 use crate::domain::models::user::{CreateUser, User};
 
@@ -14,12 +14,15 @@ pub async fn users_list(pool: SqlitePool) -> Result<Vec<User>, sqlx::Error> {
 
 pub async fn create_user(pool: SqlitePool, user_dto: CreateUser) -> Result<String, sqlx::Error> {
     match sqlx::query("INSERT INTO users (name, email) VALUES ($1, $2)")
-        .bind(user_dto.name)
+        .bind(user_dto.username)
         .bind(user_dto.email)
         .execute(&pool)
         .await
     {
-        Ok(result) => Ok("Created".to_string()),
+        Ok(result) => {
+            let id = result.last_insert_rowid();
+            Ok(id.to_string())
+        }
         Err(err) => Err(err),
     }
 }

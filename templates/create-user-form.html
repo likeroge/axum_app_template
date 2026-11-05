@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create User Form Page</h1>
+<form method="post" action="/api/users/form/create">
+  <label>Name</label>
+  <input type="text" name="username"/>
+  <label>Email</label>
+  <input type="text" name="email"/>
+  <button type="submit">CREATE</button>
+</form>
+{% endblock %}

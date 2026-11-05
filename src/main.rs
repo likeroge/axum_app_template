@@ -4,7 +4,7 @@ use axum::{
         HeaderValue, Method,
         header::{ACCEPT, ACCESS_CONTROL_ALLOW_ORIGIN, AUTHORIZATION, CONTENT_TYPE},
     },
-    routing::get,
+    routing::{get, post},
 };
 use tower_http::{
     cors::CorsLayer,
@@ -52,7 +52,12 @@ async fn main() {
             get(|| async { "Hello from Axum+SQLx+SQLite template!" }),
         )
         .route("/api/users", get(api::users::users_list))
+        .route("/api/users/form/create", post(api::users::create_user_form))
         .route("/home", get(template_controllers::home_page::index))
+        .route(
+            "/users/create",
+            get(template_controllers::create_user_form_page::index),
+        )
         .fallback_service(static_files)
         .layer(cors)
         .with_state(pool);
