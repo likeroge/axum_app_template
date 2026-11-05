@@ -17,8 +17,7 @@ pub async fn users_list(State(pool): State<SqlitePool>) -> ApiResult<ApiResponse
 pub async fn create_user_form(
     State(pool): State<SqlitePool>,
     Form(user_dto): Form<CreateUser>,
-) -> impl IntoResponse {
-    // ) -> ApiResult<ApiResponse> {
+) -> ApiResult<ApiResponse> {
     println!("{:?}", user_dto);
     match repos::users_repo::create_user(pool, user_dto).await {
         Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
