@@ -4,7 +4,7 @@ use axum::{
         HeaderValue, Method,
         header::{ACCEPT, ACCESS_CONTROL_ALLOW_ORIGIN, AUTHORIZATION, CONTENT_TYPE},
     },
-    routing::{get, post},
+    routing::{delete, get, post},
 };
 use tower_http::{
     cors::CorsLayer,
@@ -53,6 +53,9 @@ async fn main() {
         )
         .route("/api/users", get(api::users::users_list))
         .route("/api/users/form/create", post(api::users::create_user_form))
+        .route("/api/users/:name", get(api::users::users_list_with_name))
+        // .route("/api/users/delete/:id", delete(api::users::delete_user))
+        .route("/api/users/delete/:id", get(api::users::delete_user))
         .route("/home", get(template_controllers::home_page::index))
         .route(
             "/users/create",
