@@ -1,5 +1,3 @@
-use std::vec::ExtractIf;
-
 use axum::{
     Form,
     extract::{Path, State},
@@ -23,7 +21,6 @@ pub async fn create_user_form(
     State(pool): State<SqlitePool>,
     Form(user_dto): Form<CreateUser>,
 ) -> ApiResult<ApiResponse> {
-    println!("{:?}", user_dto);
     match repos::users_repo::create_user(&pool, user_dto).await {
         Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
         Err(err) => Err(ApiError::DataNotFound),

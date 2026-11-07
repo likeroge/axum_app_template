@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+ <h1>Пользователи ({{ users.len() }})</h1>
+
+    {% if users.is_empty() %}
+        <p>Пользователей нет.</p>
+    {% else %}
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Имя</th><th>Email</th></tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name}}</td>
+                <td>
+                        {{ user.email }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

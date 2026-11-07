@@ -57,6 +57,7 @@ async fn main() {
         // .route("/api/users/delete/:id", delete(api::users::delete_user))
         .route("/api/users/delete/:id", get(api::users::delete_user))
         .route("/home", get(template_controllers::home_page::index))
+        .route("/users", get(template_controllers::users_list_page::index))
         .route(
             "/users/create",
             get(template_controllers::create_user_form_page::index),
