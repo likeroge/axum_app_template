@@ -10,7 +10,7 @@ print_message "Обновление кода"
 git pull
 
 print_message "Остановка и удаление контейнеров"
-docker-compose down
+docker compose down
 
 print_message "Пересборка образов с обновленным кодом"
 docker compose up -d --build
