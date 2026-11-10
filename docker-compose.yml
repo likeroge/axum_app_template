@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5005:5005"
+    env_file: .env
+    # environment:
+    #   - DATABASE_URL=sqlite:/app/data/app.db?mode=rwc
+    volumes:
+      - ./data:/app/data   # bind mount

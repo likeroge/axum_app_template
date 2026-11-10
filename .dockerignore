@@ -1,0 +1,9 @@
+target/
+data/
+.git/
+*.db
+*.sqlite
+*.sqlite3
+.env
+front/node_modules/
+

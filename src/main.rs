@@ -1,10 +1,10 @@
 use axum::{
-    Router,
     http::{
-        HeaderValue, Method,
         header::{ACCEPT, ACCESS_CONTROL_ALLOW_ORIGIN, AUTHORIZATION, CONTENT_TYPE},
+        HeaderValue, Method,
     },
-    routing::{delete, get, post},
+    routing::{get, post},
+    Router,
 };
 use tower_http::{
     cors::CorsLayer,
@@ -24,6 +24,7 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     dotenvy::dotenv().ok();
+
     let static_files =
         ServeDir::new("./static").not_found_service(ServeFile::new("./static/index.html"));
     // ServeDir::new("./front/dist").not_found_service(ServeFile::new("./front/dist/index.html"));
