@@ -60,4 +60,4 @@ VOLUME ["/app/data"]
 USER appuser
 EXPOSE 5005
 
-CMD ["app"]
+# CMD ["app"]
