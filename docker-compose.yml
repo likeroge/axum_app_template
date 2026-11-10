@@ -5,10 +5,9 @@ services:
       - "5005:5005"
     env_file: .env
     # environment:
-      # - DATABASE_URL=sqlite:/app/data/app.db?mode=rwc
       # - DATABASE_URL=sqlite://data/my_db.sqlite?mode=rwc
     volumes:
-      # - ./data:/app/data   # bind mount
-      - data:/app/data   # bind mount
+      # - ./data:/app/data
+      - data:/app/data
 volumes:
   data:
