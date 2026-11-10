@@ -55,6 +55,9 @@ COPY --from=builder /app/.env.example /app/.env
 
 # .env не копируем внутрь образа — переменные передаются при запуске (env_file)
 
+
+RUN mkdir -p /app/data && chown -R appuser:appuser /app/data
+
 VOLUME ["/app/data"]
 
 USER appuser
