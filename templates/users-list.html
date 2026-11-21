@@ -4,9 +4,8 @@
 {% block content %}
 
  <h1>Пользователи ({{ users.len() }})</h1>
-
     {% if users.is_empty() %}
-        <p>Пользователей нет.</p>
+<p class="empty-message">Пользователей нет.</p>
     {% else %}
     <table>
         <thead>

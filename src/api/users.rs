@@ -1,6 +1,7 @@
 use axum::{
     Form,
     extract::{Path, State},
+    response::{IntoResponse, Redirect},
 };
 use sqlx::SqlitePool;
 
@@ -20,9 +21,10 @@ pub async fn users_list(State(pool): State<SqlitePool>) -> ApiResult<ApiResponse
 pub async fn create_user_form(
     State(pool): State<SqlitePool>,
     Form(user_dto): Form<CreateUser>,
-) -> ApiResult<ApiResponse> {
+) -> Result<Redirect, ApiError> {
     match repos::users_repo::create_user(&pool, user_dto).await {
-        Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
+        // Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
+        Ok(_) => Ok(Redirect::to("/users")),
         Err(err) => Err(ApiError::DataNotFound),
     }
 }
