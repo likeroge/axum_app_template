@@ -1,10 +1,10 @@
 use axum::{
+    Router,
     http::{
-        header::{ACCEPT, ACCESS_CONTROL_ALLOW_ORIGIN, AUTHORIZATION, CONTENT_TYPE},
         HeaderValue, Method,
+        header::{ACCEPT, ACCESS_CONTROL_ALLOW_ORIGIN, AUTHORIZATION, CONTENT_TYPE},
     },
     routing::{get, post},
-    Router,
 };
 use tower_http::{
     cors::CorsLayer,
