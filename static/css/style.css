@@ -161,3 +161,20 @@ form button:active {
     background: #2a4e7f;
 }
 
+.index_page-container {
+    border: 2px solid #212121;
+    border-radius: 5px;
+    padding: 5px;
+    min-height: 50vh;
+}
+
+.index_page-header {
+    font-size: 24px;
+    color: purple;
+}
+
+
+.index_page-h4{
+    font-size: 18px;
+    font-weight: bold;
+}
