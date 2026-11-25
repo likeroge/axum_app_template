@@ -1,5 +1,6 @@
 /target
-/data/*
+/data/*.db
+/data/*.sqlite
 **/*.rs.bk
 .env
 .db
