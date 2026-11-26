@@ -1,12 +1,15 @@
 use axum::{
     Form,
     extract::{Path, State},
-    response::{IntoResponse, Redirect},
+    response::Redirect,
 };
 use sqlx::SqlitePool;
 
 use crate::{
-    api_responses::{ApiError, ApiResponse, ApiResult},
+    api_responses::{
+        ApiError::{self, CustomError},
+        ApiResponse, ApiResult,
+    },
     domain::models::user::CreateUser,
     infrastructure::repos,
 };
@@ -14,7 +17,7 @@ use crate::{
 pub async fn users_list(State(pool): State<SqlitePool>) -> ApiResult<ApiResponse> {
     match repos::users_repo::users_list(&pool).await {
         Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
-        Err(err) => Err(ApiError::DataNotFound),
+        Err(err) => Err(CustomError(err.to_string())),
     }
 }
 
@@ -25,7 +28,7 @@ pub async fn create_user_form(
     match repos::users_repo::create_user(&pool, user_dto).await {
         // Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
         Ok(_) => Ok(Redirect::to("/users")),
-        Err(err) => Err(ApiError::DataNotFound),
+        Err(err) => Err(CustomError(err.to_string())),
     }
 }
 
@@ -35,7 +38,7 @@ pub async fn delete_user(
 ) -> ApiResult<ApiResponse> {
     match repos::users_repo::delete_user(&pool, id).await {
         Ok(user_id) => Ok(ApiResponse::JsonResponse(serde_json::json!(user_id))),
-        Err(err) => Err(ApiError::DataNotFound),
+        Err(err) => Err(CustomError(err.to_string())),
     }
 }
 
@@ -45,6 +48,6 @@ pub async fn users_list_with_name(
 ) -> ApiResult<ApiResponse> {
     match repos::users_repo::all_users_with_username(&pool, user).await {
         Ok(users) => Ok(ApiResponse::JsonResponse(serde_json::json!(users))),
-        Err(err) => Err(ApiError::DataNotFound),
+        Err(err) => Err(CustomError(err.to_string())),
     }
 }

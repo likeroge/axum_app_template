@@ -19,12 +19,14 @@ impl IntoResponse for ApiResponse {
 
 pub enum ApiError {
     DataNotFound,
+    CustomError(String),
 }
 
 impl IntoResponse for ApiError {
     fn into_response(self) -> Response {
         match self {
             ApiError::DataNotFound => (StatusCode::NOT_FOUND, "Data Not Found").into_response(),
+            ApiError::CustomError(err) => (StatusCode::BAD_REQUEST, err).into_response(),
         }
     }
 }

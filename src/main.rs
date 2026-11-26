@@ -17,7 +17,7 @@ mod api_responses;
 mod db;
 mod domain;
 mod infrastructure;
-mod template_controllers;
+mod web;
 
 #[tokio::main]
 async fn main() {
@@ -57,13 +57,11 @@ async fn main() {
         .route("/api/users/:name", get(api::users::users_list_with_name))
         // .route("/api/users/delete/:id", delete(api::users::delete_user))
         .route("/api/users/delete/:id", get(api::users::delete_user))
-        .route("/", get(template_controllers::index_page::index))
-        .route("/home", get(template_controllers::home_page::index))
-        .route("/users", get(template_controllers::users_list_page::index))
-        .route(
-            "/users/create",
-            get(template_controllers::create_user_form_page::index),
-        )
+        .route("/", get(web::home::index))
+        .route("/home", get(web::home::home))
+        .route("/about", get(web::home::about))
+        .route("/users", get(web::users::user_list))
+        .route("/users/create", get(web::users::create_form))
         .fallback_service(static_files)
         .layer(cors)
         .with_state(pool);
