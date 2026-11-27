@@ -1,3 +1,5 @@
+use std::println;
+
 use sqlx::SqlitePool;
 
 use crate::domain::models::user::{CreateUser, User};
@@ -34,6 +36,19 @@ pub async fn all_users_with_username(
         .await
     {
         Ok(result) => Ok(result),
+        Err(err) => Err(err),
+    }
+}
+
+pub async fn find_user_by_id(pool: &SqlitePool, user_id: i64) -> Result<User, sqlx::Error> {
+    match sqlx::query_as!(User, "SELECT * FROM users WHERE id=?", user_id)
+        .fetch_one(pool)
+        .await
+    {
+        Ok(user) => {
+            println!("{:?}", user);
+            Ok(user)
+        }
         Err(err) => Err(err),
     }
 }

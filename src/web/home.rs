@@ -38,10 +38,13 @@ pub async fn index() -> impl IntoResponse {
 
 #[derive(Template, Default)]
 #[template(path = "about.html")]
-pub struct AboutPage {}
+pub struct AboutPage {
+    helper_text: String,
+}
 
 pub async fn about() -> impl IntoResponse {
-    let html = AboutPage::default();
+    let mut html = AboutPage::default();
+    html.helper_text = "Hello, this is helper text from struct".to_string();
     match html.render() {
         Ok(result) => Html(result).into_response(),
         Err(e) => {
